@@ -21,7 +21,7 @@ A migration-factory blueprint for planning the move of **50–100 VMware workloa
 
 ![Target migration architecture](architecture/azure-vmware-migration-factory.svg)
 
-The SVG uses official Microsoft Azure architecture/service icon assets where available. The diagram represents the **target/reference design**, not deployed resources.
+The SVG and editable draw.io source use clearly labeled, Azure-style service tiles. For official product icons, use the [Microsoft Azure Architecture Icons](https://learn.microsoft.com/en-us/azure/architecture/icons/) collection and follow Microsoft's terms and guidance. The diagram represents the **target/reference design**, not deployed resources.
 
 ### Migration flow
 
