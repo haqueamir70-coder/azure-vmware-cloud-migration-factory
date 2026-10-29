@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#08182e"/><stop offset="1" stop-color="#102d4c"/></linearGradient>
+ <linearGradient id="azure" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1686d9"/><stop offset="1" stop-color="#005a9e"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#20bfa9"/><stop offset="1" stop-color="#087f8c"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000" flood-opacity=".22"/></filter>
+ <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#67c6ff"/></marker>
+ <style>
+ .title{font:700 32px 'Segoe UI',Arial,sans-serif;fill:#fff}.subtitle{font:400 15px 'Segoe UI',Arial,sans-serif;fill:#a9c5dd}
+ .section{font:700 18px 'Segoe UI',Arial,sans-serif;fill:#eef7ff}.label{font:600 15px 'Segoe UI',Arial,sans-serif;fill:#fff}.small{font:400 12px 'Segoe UI',Arial,sans-serif;fill:#c1d5e6}.tiny{font:400 11px 'Segoe UI',Arial,sans-serif;fill:#a8c4d9}
+ .node{fill:#143858;stroke:#2c6793;stroke-width:1.4}.azureNode{fill:#103d64;stroke:#248fe0;stroke-width:1.6}.tealNode{fill:#103e48;stroke:#21b7a7;stroke-width:1.5}.orangeNode{fill:#49391e;stroke:#e3a43c;stroke-width:1.5}
+ .edge{stroke:#67c6ff;stroke-width:2.3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:7 6}
+ </style>
+</defs>
+<rect width="1600" height="1080" rx="24" fill="url(#bg)"/>
+<text x="58" y="60" class="title">Azure VMware-to-Cloud Migration Factory</text>
+<text x="60" y="89" class="subtitle">REFERENCE ARCHITECTURE • 50–100 WORKLOAD PLANNING EXAMPLE • MINIMUM-DOWNTIME APPROACH</text>
+<rect x="60" y="120" width="1480" height="2" fill="#245579"/>
+<!-- top workflow source and assessment -->
+<rect x="55" y="150" width="300" height="240" rx="18" class="node" filter="url(#shadow)"/>
+<rect x="55" y="150" width="300" height="48" rx="18" fill="#6f4aa8"/>
+<rect x="55" y="180" width="300" height="18" fill="#6f4aa8"/>
+<text x="78" y="181" class="section">ON-PREMISES</text>
+<rect x="80" y="220" width="66" height="58" rx="10" fill="#2b1e48" stroke="#ac8de0"/>
+<path d="M96 232 L122 232 L122 247 L96 247 Z M96 251 L122 251 L122 266 L96 266 Z" fill="none" stroke="#d6c3ff" stroke-width="2"/>
+<circle cx="101" cy="239" r="2" fill="#d6c3ff"/><circle cx="101" cy="258" r="2" fill="#d6c3ff"/>
+<text x="160" y="239" class="label">VMware vSphere</text><text x="160" y="260" class="small">vCenter • ESXi • VMs</text>
+<text x="80" y="306" class="small">Discovery inputs</text>
+<text x="80" y="327" class="tiny">Inventory • dependency map</text>
+<text x="80" y="346" class="tiny">OS, CPU/RAM, disks, IOPS</text>
+<text x="80" y="365" class="tiny">RTO/RPO • owners • licenses</text>
+
+<rect x="410" y="150" width="325" height="240" rx="18" class="azureNode" filter="url(#shadow)"/>
+<rect x="410" y="150" width="325" height="48" rx="18" fill="url(#azure)"/>
+<text x="433" y="181" class="section">DISCOVERY &amp; ASSESSMENT</text>
+<rect x="438" y="218" width="54" height="54" rx="12" fill="#0878c9"/>
+<path d="M452 248 A13 13 0 1 1 477 248 M464 232 L464 248 L476 254" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/>
+<text x="505" y="235" class="label">Azure Migrate</text><text x="505" y="256" class="small">Discovery &amp; assessment</text>
+<line x1="437" y1="290" x2="707" y2="290" stroke="#2f6e99"/>
+<text x="438" y="315" class="small">Assess</text><text x="500" y="315" class="tiny">readiness • sizing • cost</text>
+<text x="438" y="340" class="small">Design</text><text x="500" y="340" class="tiny">target design • wave groups</text>
+<text x="438" y="365" class="small">Gate</text><text x="500" y="365" class="tiny">owner sign-off • blockers</text>
+
+<rect x="790" y="150" width="300" height="240" rx="18" class="tealNode" filter="url(#shadow)"/>
+<rect x="790" y="150" width="300" height="48" rx="18" fill="url(#teal)"/>
+<text x="813" y="181" class="section">MIGRATION CONTROL</text>
+<rect x="816" y="220" width="55" height="55" rx="12" fill="#087f8c"/>
+<path d="M829 239 L840 250 L858 229 M829 260 L857 260" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+<text x="885" y="237" class="label">Wave planning</text><text x="885" y="258" class="small">Pilot → wave N</text>
+<line x1="815" y1="290" x2="1065" y2="290" stroke="#237e80"/>
+<text x="816" y="315" class="tiny">• Replication health / lag</text>
+<text x="816" y="336" class="tiny">• Approved change window</text>
+<text x="816" y="357" class="tiny">• Go/no-go &amp; rollback gates</text>
+<text x="816" y="376" class="tiny">• Application-owner acceptance</text>
+
+<rect x="1145" y="150" width="400" height="240" rx="18" class="orangeNode" filter="url(#shadow)"/>
+<rect x="1145" y="150" width="400" height="48" rx="18" fill="#9c6822"/>
+<text x="1168" y="181" class="section">REPLICATION &amp; CUTOVER</text>
+<rect x="1172" y="219" width="55" height="55" rx="12" fill="#99651e"/>
+<path d="M1184 233 L1214 233 L1214 260 L1184 260 Z M1190 240 L1208 240 M1190 247 L1208 247 M1190 254 L1202 254" stroke="#fff" stroke-width="2" fill="none"/>
+<text x="1242" y="237" class="label">Azure Site Recovery*</text><text x="1242" y="258" class="small">Replication / recovery flow</text>
+<text x="1172" y="307" class="tiny">Pre-cutover test migration • validation</text>
+<text x="1172" y="328" class="tiny">Final sync • traffic / DNS change</text>
+<text x="1172" y="349" class="tiny">Smoke test • business sign-off</text>
+<text x="1172" y="370" class="tiny">*Service choice and prerequisites vary by scenario</text>
+
+<!-- workflow arrows -->
+<path d="M355 270 L400 270" class="edge"/>
+<path d="M735 270 L780 270" class="edge"/>
+<path d="M1090 270 L1135 270" class="edge"/>
+<!-- lower landing zone -->
+<rect x="55" y="440" width="990" height="390" rx="20" fill="#0d2944" stroke="#247fbc" stroke-width="2" filter="url(#shadow)"/>
+<rect x="55" y="440" width="990" height="54" rx="20" fill="#075a96"/>
+<rect x="55" y="475" width="990" height="19" fill="#075a96"/>
+<text x="80" y="474" class="section">AZURE LANDING ZONE • TARGET ENVIRONMENT</text>
+<text x="80" y="520" class="small">Subscription / resource groups • governance • least privilege • diagnostics • tagging and budgets</text>
+<!-- vnet -->
+<rect x="85" y="548" width="625" height="245" rx="16" fill="#0a3458" stroke="#2388cd" stroke-width="1.7"/>
+<text x="105" y="578" class="label">Azure Virtual Network (VNet) • segmented address space</text>
+<rect x="105" y="600" width="180" height="164" rx="12" class="azureNode"/>
+<rect x="123" y="617" width="43" height="43" rx="8" fill="#0878c9"/>
+<path d="M134 630 L155 630 L155 647 L134 647 Z M141 624 L148 624" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="123" y="684" class="label">Migration subnet</text>
+<text x="123" y="706" class="tiny">Temporary / target</text>
+<text x="123" y="725" class="tiny">VM workloads</text>
+<text x="123" y="744" class="tiny">NSG + route control</text>
+<rect x="305" y="600" width="180" height="164" rx="12" class="azureNode"/>
+<rect x="323" y="617" width="43" height="43" rx="8" fill="#0878c9"/>
+<path d="M344 624 L356 630 L356 643 Q350 653 344 656 Q338 653 332 643 L332 630 Z" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="323" y="684" class="label">Management</text>
+<text x="323" y="703" class="label">subnet</text>
+<text x="323" y="728" class="tiny">Private access pattern</text>
+<text x="323" y="746" class="tiny">Bastion / admin controls</text>
+<rect x="505" y="600" width="180" height="164" rx="12" class="tealNode"/>
+<rect x="523" y="617" width="43" height="43" rx="8" fill="#078b85"/>
+<path d="M544 623 L544 653 M529 638 L559 638 M533 627 L529 638 L533 649 M555 627 L559 638 L555 649" stroke="#fff" stroke-width="2" fill="none"/>
+<text x="523" y="684" class="label">Private services</text>
+<text x="523" y="706" class="tiny">Private Endpoint / DNS</text>
+<text x="523" y="725" class="tiny">Key Vault / Storage</text>
+<text x="523" y="744" class="tiny">DB target as assessed</text>
+<!-- platform rails -->
+<rect x="742" y="548" width="272" height="74" rx="12" class="tealNode"/>
+<circle cx="776" cy="585" r="20" fill="#078b85"/><path d="M766 585 L774 593 L788 576" stroke="#fff" stroke-width="3" fill="none"/>
+<text x="808" y="578" class="label">Identity &amp; secrets</text><text x="808" y="599" class="tiny">RBAC • managed identity • Key Vault</text>
+<rect x="742" y="637" width="272" height="74" rx="12" class="azureNode"/>
+<circle cx="776" cy="674" r="20" fill="#0878c9"/><path d="M764 675 L788 675 M776 663 L776 687 M767 666 L785 684 M785 666 L767 684" stroke="#fff" stroke-width="2" fill="none"/>
+<text x="808" y="667" class="label">Operations</text><text x="808" y="688" class="tiny">Azure Monitor • Log Analytics • alerts</text>
+<rect x="742" y="726" width="272" height="48" rx="12" class="node"/>
+<text x="761" y="755" class="label">Backup • DR • Defender • Policy</text>
+<!-- connections from cutover to landing -->
+<path d="M1330 390 L1330 418 L1030 418 L1030 430" class="edge dash"/>
+<path d="M1030 430 L1030 438" class="edge"/>
+<!-- bottom operations + IaC -->
+<rect x="1080" y="440" width="465" height="390" rx="20" class="node" filter="url(#shadow)"/>
+<rect x="1080" y="440" width="465" height="54" rx="20" fill="#28587e"/>
+<rect x="1080" y="475" width="465" height="19" fill="#28587e"/>
+<text x="1104" y="474" class="section">AUTOMATION &amp; OPERATIONS</text>
+<rect x="1110" y="522" width="405" height="89" rx="14" class="azureNode"/>
+<rect x="1130" y="544" width="45" height="45" rx="8" fill="#0878c9"/>
+<path d="M1140 553 L1165 553 L1165 580 L1140 580 Z M1147 560 L1158 560 M1147 567 L1158 567 M1147 574 L1155 574" stroke="#fff" fill="none" stroke-width="2"/>
+<text x="1190" y="552" class="label">Terraform + GitHub Actions</text>
+<text x="1190" y="576" class="small">fmt • validate • Checkov • reviewed plan</text>
+<text x="1190" y="594" class="tiny">Protected apply requires configured approval/auth</text>
+<rect x="1110" y="627" width="405" height="75" rx="14" class="tealNode"/>
+<text x="1130" y="655" class="label">Runbooks &amp; evidence</text>
+<text x="1130" y="679" class="small">Pilot • cutover • rollback • acceptance record</text>
+<rect x="1110" y="719" width="405" height="82" rx="14" class="orangeNode"/>
+<text x="1130" y="746" class="label">Post-migration handover</text>
+<text x="1130" y="768" class="small">Health • backup restore • patching • cost review</text>
+<text x="1130" y="786" class="tiny">Retire source only after agreed closure gate</text>
+<!-- bottom footer -->
+<rect x="55" y="865" width="1490" height="150" rx="18" fill="#0b2138" stroke="#295878"/>
+<text x="82" y="900" class="section">MIGRATION FACTORY GATES</text>
+<g>
+ <rect x="82" y="923" width="215" height="54" rx="10" fill="#163d5d" stroke="#3e7fa8"/><text x="102" y="946" class="label">1. Discover</text><text x="102" y="965" class="tiny">Inventory + dependencies</text>
+ <rect x="314" y="923" width="215" height="54" rx="10" fill="#163d5d" stroke="#3e7fa8"/><text x="334" y="946" class="label">2. Assess</text><text x="334" y="965" class="tiny">Readiness + sizing</text>
+ <rect x="546" y="923" width="215" height="54" rx="10" fill="#163d5d" stroke="#3e7fa8"/><text x="566" y="946" class="label">3. Pilot</text><text x="566" y="965" class="tiny">Test + remediate</text>
+ <rect x="778" y="923" width="215" height="54" rx="10" fill="#163d5d" stroke="#3e7fa8"/><text x="798" y="946" class="label">4. Cut over</text><text x="798" y="965" class="tiny">Approved change window</text>
+ <rect x="1010" y="923" width="215" height="54" rx="10" fill="#163d5d" stroke="#3e7fa8"/><text x="1030" y="946" class="label">5. Validate</text><text x="1030" y="965" class="tiny">App + data + security</text>
+ <rect x="1242" y="923" width="255" height="54" rx="10" fill="#16454b" stroke="#32b9a8"/><text x="1262" y="946" class="label">6. Operate</text><text x="1262" y="965" class="tiny">Hypercare + handover</text>
+</g>
+<text x="80" y="1047" class="tiny">REFERENCE DESIGN • validate service prerequisites, region availability, IP overlap, security policies and workload-specific RTO/RPO before deployment.</text>
+</svg>
