@@ -71,14 +71,14 @@ Requirements: Terraform CLI, Azure CLI, an Azure subscription, and permissions t
 az login
 az account show
 cd terraform/environments/dev
-cp terraform.tfvars.example terraform.tfvars
+cp environments/dev/terraform.tfvars.example terraform.tfvars
 terraform init
 terraform fmt -check -recursive
 terraform validate
 terraform plan
 ```
 
-Set the intended subscription explicitly with `az account set --subscription "<SUBSCRIPTION_ID>"`. Review the complete plan before running `terraform apply`. The scaffold creates cloud resources and can incur charges; do not apply to production without review.
+Run these commands from the `terraform/` directory. Set the intended subscription explicitly with `az account set --subscription "<SUBSCRIPTION_ID>"`. Review the complete plan before running `terraform apply`. The scaffold creates cloud resources and can incur charges; do not apply to production without review.
 
 ## Suggested project walkthrough
 
