@@ -1,0 +1,2 @@
+wave_id,sequence,application_group,business_criticality,workloads,dependency_reviewed,readiness_gate,replication_health_gate,test_migration_gate,change_id,cutover_owner,business_approver,validation_window_minutes,rollback_decision_owner,rollback_criteria,hypercare_owner,status,notes
+wave-01,1,SYNTHETIC-APP-GROUP,medium,"VM-001;VM-002",no,pending,pending,pending,TBD,migration-lead,app-owner,60,change-manager,"Acceptance criteria fail within agreed window",ops-owner,planned,"Synthetic example - replace with approved plan"
