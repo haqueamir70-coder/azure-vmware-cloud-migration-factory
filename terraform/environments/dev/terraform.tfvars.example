@@ -1,9 +1,10 @@
-# Copy to terraform.tfvars locally. Do not commit real tenant/subscription details.
+# Copy this file to terraform/terraform.tfvars when running from the terraform/ directory.
+# Do not commit real subscription or tenant values.
 subscription_id     = "00000000-0000-0000-0000-000000000000"
 location            = "canadacentral"
 resource_group_name = "rg-migration-factory-dev"
-vnet_name           = "vnet-migration-dev"
-address_space       = ["10.80.0.0/16"]
+vnet_name            = "vnet-migration-dev"
+address_space        = ["10.80.0.0/16"]
 
 tags = {
   project     = "azure-vmware-cloud-migration-factory"
