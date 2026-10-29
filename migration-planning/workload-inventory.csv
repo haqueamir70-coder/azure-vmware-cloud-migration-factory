@@ -1,0 +1,2 @@
+workload_id,application_name,business_owner,technical_owner,environment,os_version,vCPU,memory_gb,data_gb,peak_change_rate_mbps,criticality,RTO_minutes,RPO_minutes,dependencies,ports,source_ip,target_disposition,target_region,migration_wave,cutover_window,validation_owner,rollback_trigger,status,notes
+VM-001,SYNTHETIC-APP-01,owner@example.invalid,ops@example.invalid,dev,Ubuntu-LTS,4,16,200,10,medium,240,60,"SYNTHETIC-DB-01","443",10.10.1.10,rehost,canadacentral,wave-01,TBD,app-owner,"Critical smoke test fails",discovery
