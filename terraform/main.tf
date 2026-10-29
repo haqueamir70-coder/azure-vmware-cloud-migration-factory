@@ -13,11 +13,11 @@ resource "azurerm_virtual_network" "this" {
 }
 
 locals {
-  # These ranges are starter defaults. Confirm against the VNet address plan
-  # and all connected on-premises/Azure networks before deployment.
+  # Split the provided /16 into /24 subnets. Confirm no overlap with connected
+  # on-premises or other Azure ranges before deployment.
   subnet_prefixes = {
-    migration  = "10.80.1.0/24"
-    management = "10.80.2.0/24"
+    migration  = cidrsubnet(var.address_space[0], 8, 1)
+    management = cidrsubnet(var.address_space[0], 8, 2)
   }
 }
 
