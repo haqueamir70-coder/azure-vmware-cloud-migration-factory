@@ -12,16 +12,23 @@ resource "azurerm_virtual_network" "this" {
   tags                = var.tags
 }
 
+locals {
+  subnet_prefixes = {
+    migration  = "10.80.1.0/24"
+    management = "10.80.2.0/24"
+  }
+}
+
 resource "azurerm_subnet" "migration" {
   name                 = "snet-migration"
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = ["10.80.1.0/24"]
+  address_prefixes     = [local.subnet_prefixes.migration]
 }
 
 resource "azurerm_subnet" "management" {
   name                 = "snet-management"
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = ["10.80.2.0/24"]
+  address_prefixes     = [local.subnet_prefixes.management]
 }
