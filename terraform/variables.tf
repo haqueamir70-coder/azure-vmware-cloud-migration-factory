@@ -28,8 +28,8 @@ variable "address_space" {
   default     = ["10.80.0.0/16"]
 
   validation {
-    condition     = length(var.address_space) > 0
-    error_message = "Provide at least one address prefix."
+    condition     = try(length(var.address_space) == 1 && cidrnetmask(var.address_space[0]) == "255.255.0.0", false)
+    error_message = "This starter expects exactly one /16 IPv4 address prefix so the two /24 subnet ranges can be calculated consistently."
   }
 }
 
