@@ -106,3 +106,8 @@ GitHub Actions is intended to run formatting, initialization/validation and a st
 ## Disclaimer
 
 This is an engineering learning and portfolio project, not Microsoft product documentation or a substitute for workload-specific assessment, Microsoft service prerequisites, change-management approval, or a tested recovery plan.
+
+
+## Architecture and interview preparation
+
+See the [architecture diagram and interview questions](docs/README.md) for the repository-specific design walkthrough and technical interview guide.
