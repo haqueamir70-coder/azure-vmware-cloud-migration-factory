@@ -32,3 +32,46 @@ flowchart TD
 
 ## Interview preparation note
 Answer with architecture rationale, security controls, operational failure scenarios, observability and test evidence. Clearly label implemented, CI-validated, deployed and planned scope.
+
+
+## Interview questions — suggested answers
+
+### 1. Answer
+
+Typical phases are discovery, assessment, design, pilot, migration waves, cutover, optimization and decommissioning. Each phase has entry/exit criteria.
+
+### 2. Answer
+
+Use inventory tools, dependency maps, network flows, application owner interviews and performance data. Validate dependencies with application owners before wave assignment.
+
+### 3. Answer
+
+Group workloads by dependency, business criticality, maintenance window, technical compatibility, network boundaries and rollback complexity.
+
+### 4. Answer
+
+Choose representative but low-risk workloads with clear owners, measurable success criteria and rollback paths. A pilot validates process and tooling.
+
+### 5. Answer
+
+Test migration validates replication and readiness without final production cutover; production migration switches workload operation and user traffic.
+
+### 6. Answer
+
+RTO is the maximum acceptable recovery time; RPO is the maximum acceptable data-loss window. Set both with business owners and test them.
+
+### 7. Answer
+
+Common failures include DNS/routing errors, identity issues, storage performance, dependency omissions, replication lag and application licensing/configuration.
+
+### 8. Answer
+
+Define preconditions, go/no-go gates, decision authority, rollback triggers, exact steps, data consistency handling and communications before cutover.
+
+### 9. Answer
+
+Test DNS, routes, firewall, identity, storage, application health, integrations, performance and business transactions from representative locations.
+
+### 10. Answer
+
+Require owner sign-off, stable operation, backup/restore validation, monitoring, compliance approval and confirmed data retention before decommissioning source.
