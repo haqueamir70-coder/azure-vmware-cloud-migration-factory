@@ -1,113 +1,141 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:102A43,45:0078D4,100:14B8A6&height=190&section=header&text=Azure+VMware+Migration+Factory&fontSize=32&fontColor=ffffff&animation=fadeIn" alt="Azure VMware Migration Factory" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:102A43,45:075985,100:14B8A6&height=225&section=header&text=Azure%20VMware%20Migration%20Factory&fontSize=34&fontColor=ffffff&animation=fadeIn" width="100%" alt="Azure VMware migration factory"/>
 
-<p><b>Enterprise migration planning • Azure landing zone • Terraform • Security • Cutover and rollback</b></p>
+### Discover · Assess · Wave-plan · Migrate · Validate · Operate
 
 [![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
-[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://docs.github.com/actions)
-[![Portfolio](https://img.shields.io/badge/Portfolio-MD_Amirul-181717?style=for-the-badge&logo=github)](https://github.com/haqueamir70-coder)
+[![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://docs.github.com/actions)
+[![Migration](https://img.shields.io/badge/Focus-Enterprise_Migration-0F766E?style=for-the-badge)](https://learn.microsoft.com/azure/migrate/)
+
+**A migration-factory blueprint for planning VMware-to-Azure workload moves with dependency-aware waves, landing-zone readiness, controlled cutover and explicit rollback gates.**
+
+[Target architecture](#-target-architecture) · [Migration lifecycle](#-migration-lifecycle) · [Terraform foundation](#-terraform-foundation) · [Runbooks](runbooks/README.md)
 
 </div>
 
-> **Portfolio and learning lab.** This repository contains a reference migration method, Terraform starter infrastructure, decision records, operating runbooks, and testable automation. It does not claim that a live VMware estate has been migrated or that a production cutover has occurred.
+> [!IMPORTANT]
+> This is a planning and engineering reference. It does **not** claim that 50–100 real servers have been migrated, that Azure Migrate appliances are configured, or that a production cutover has occurred. Downtime depends on workload consistency, replication, network throughput and the selected migration method.
 
-## Executive summary
+## Executive brief
 
-A migration-factory blueprint for planning the move of **50–100 VMware workloads to Microsoft Azure with minimum planned downtime**. It demonstrates the engineering workflow from discovery and dependency mapping through landing-zone readiness, pilot migration, migration waves, controlled cutover, rollback decisions, and post-migration operations.
+Large-scale migration is not a VM-copy exercise. The factory model coordinates discovery, dependency mapping, landing-zone readiness, wave planning, pilot testing, business acceptance and operational handover.
 
-## Architecture overview
+The planning example considers an estate of 50–100 VMware workloads. Actual wave size must be based on application dependencies, criticality, RTO/RPO, capacity and change windows — not a fixed server count.
 
-![Target migration architecture](architecture/azure-vmware-migration-factory.svg)
+## Target architecture
 
-The SVG embeds Azure service icons for Azure Migrate, Recovery Services Vault, Virtual Networks, Key Vault, and Azure Monitor. The editable draw.io source contains labeled architecture shapes; use the [official Microsoft Azure Architecture Icons](https://learn.microsoft.com/en-us/azure/architecture/icons/) collection for further icon customization and follow Microsoft's terms and guidance. The diagram represents the **target/reference design**, not deployed resources.
+<p align="center">
+  <img src="architecture/azure-vmware-migration-factory.svg" alt="Azure VMware migration factory target architecture" width="100%"/>
+</p>
 
-### Migration flow
+The diagram is a target/reference design and embeds Azure service icons. For editable architecture, use the source files in `architecture/` and Microsoft's [Azure Architecture Icons guidance](https://learn.microsoft.com/azure/architecture/icons/).
+
+## Migration lifecycle
 
 ```mermaid
 flowchart LR
-  A[VMware vCenter / On-premises] --> B[Discovery and dependency assessment]
-  B --> C[Azure Migrate project]
-  C --> D[Readiness, sizing and wave planning]
-  D --> E[Azure Landing Zone]
-  E --> F[Replicate and test migration]
-  F --> G{Business and technical gates pass?}
-  G -- No --> H[Fix findings / re-test]
-  H --> F
-  G -- Yes --> I[Approved cutover window]
-  I --> J[Smoke tests and business validation]
-  J --> K{Acceptance criteria met?}
-  K -- Yes --> L[Operational handover]
-  K -- No --> M[Rollback decision and recovery plan]
+  Source[VMware estate] --> Discover[Discovery + dependency map]
+  Discover --> Assess[Readiness + sizing]
+  Assess --> Wave[Migration wave plan]
+  Wave --> Landing[Azure landing zone ready]
+  Landing --> Pilot[Replication + pilot test]
+  Pilot --> Gate{Technical + business gate}
+  Gate -->|Fail| Remediate[Remediate and re-test]
+  Remediate --> Pilot
+  Gate -->|Pass| Cutover[Approved cutover window]
+  Cutover --> Verify[Application + business validation]
+  Verify --> Accept{Acceptance criteria met?}
+  Accept -->|Yes| Handover[Operations handover]
+  Accept -->|No| Rollback[Rollback decision]
 ```
 
-## What is in this repository?
+## Factory workstreams
 
-| Area | Contents |
+| Workstream | Key outputs |
 |---|---|
-| `architecture/` | Azure service-icon diagram and editable source |
-| `terraform/` | Minimal baseline networking scaffold, environment example, validation workflow |
-| `migration-planning/` | Discovery, wave planning, cutover gates, rollback and validation templates |
-| `runbooks/` | Pilot execution, cutover and rollback procedures |
-| `docs/` | Reference design, assumptions, RACI and decision records |
-| `interview-prep/` | Senior-level questions, architecture trade-offs and scenario answers |
-| `.github/workflows/` | Terraform format/validate and static IaC scanning |
+| Discovery | VM inventory, owner, OS, dependencies, utilization |
+| Assessment | Readiness, sizing, licensing, risk and blockers |
+| Landing zone | Network, identity, security, DNS, monitoring, backup |
+| Wave planning | Dependency groups, schedule, owners, go/no-go criteria |
+| Pilot | Representative test migration and measured validation |
+| Cutover | Change plan, communications, acceptance and rollback |
+| Operations | Monitoring, patching, backup, DR, ownership and cost controls |
 
-## Target scope and assumptions
+## Migration planning assumptions
 
-- **Source:** VMware vSphere estate; inventory, application ownership, dependencies and licensing must be discovered.
-- **Target:** Azure landing zone with segmented virtual networks and controlled connectivity.
-- **Scale:** planning example for 50–100 servers; actual wave size is determined by dependency, business criticality, RTO/RPO and capacity.
-- **Downtime:** minimize downtime, not promise zero downtime. Replication and final outage depend on workload, application consistency, data-change rate, network throughput and chosen migration method.
-- **Infrastructure as Code:** Terraform scaffold for selected Azure foundation resources. Azure Migrate and Azure Site Recovery workflows require separate service configuration, permissions, appliances/agents, capacity checks and operational approvals; the Terraform files do not perform an end-to-end migration by themselves.
-- **Cost:** no resources are deployed by the repository merely by cloning it. Review pricing, quotas, region support and the plan before applying.
+- **Source:** VMware vSphere; actual inventory and dependencies must be discovered.
+- **Target:** Azure landing zone with approved connectivity and security controls.
+- **Scale:** 50–100 workloads is a planning scenario, not a measured estate.
+- **Downtime:** minimize planned downtime; do not promise zero downtime without workload-specific proof.
+- **Tooling:** Azure Migrate and Azure Site Recovery require service configuration, appliances/agents, permissions, capacity checks and workload-specific runbooks.
+- **Terraform:** provisions selected foundation resources; it does not perform a complete VM migration.
 
-## Quick start — Terraform foundation
+## Terraform foundation
 
-Requirements: Terraform CLI, Azure CLI, an Azure subscription, and permissions to create a resource group, virtual network and subnets.
+Prerequisites: Terraform CLI, Azure CLI, a non-production subscription and permissions to create the configured network resources.
+
+From the repository's `terraform/` directory:
 
 ```bash
 az login
 az account show
-cd terraform/environments/dev
-cp environments/dev/terraform.tfvars.example terraform.tfvars
+az account set --subscription "<SUBSCRIPTION_ID>"
+cd environments/dev
+cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform fmt -check -recursive
 terraform validate
 terraform plan
 ```
 
-Run these commands from the `terraform/` directory. Set the intended subscription explicitly with `az account set --subscription "<SUBSCRIPTION_ID>"`. Review the complete plan before running `terraform apply`. The scaffold creates cloud resources and can incur charges; do not apply to production without review.
+Review the complete plan and estimated cost before applying. Confirm the target subscription and region. Never commit credentials, state, plan files, private keys or sensitive inventory.
 
-## Suggested project walkthrough
+## Go / no-go criteria
 
-1. Build a discovery inventory and assess application dependencies.
-2. Define landing-zone connectivity, identity, policy, monitoring, DNS and security requirements.
-3. Group servers into waves by dependency and business risk — not just by VM count.
-4. Rehearse a representative pilot in a non-production environment.
-5. Use documented go/no-go gates, stakeholder approval, validation evidence and explicit rollback decision points.
-6. Hand over monitoring, backup, patching, DR, ownership and cost controls.
+Before a migration wave proceeds, confirm:
 
-Detailed planning and acceptance templates are under [migration-planning](migration-planning/README.md); practical procedures are under [runbooks](runbooks/README.md).
+- Application owner and technical owner are identified.
+- Dependencies, ports, DNS and identity flows are documented.
+- Target subnet, security policy, monitoring and backup are ready.
+- Replication health and recovery objectives are understood.
+- Pilot test evidence meets agreed acceptance criteria.
+- Business communications and change approval are complete.
+- Rollback decision owner, trigger and execution path are explicit.
 
-## Security principles
+## Repository map
 
-- Use short-lived authentication/OIDC for CI when configured; avoid long-lived client secrets.
-- Keep credentials, SSH private keys, exported inventories containing sensitive values, state files and secret-bearing plans out of Git.
-- Restrict Terraform state backend and deployment identity using least privilege.
-- Treat the diagrams and sample values as illustrative. Confirm region availability, service prerequisites, and organizational policy before deployment.
-- Pin and review action versions and provider constraints before production use.
+| Directory | Purpose |
+|---|---|
+| `architecture/` | Target architecture SVG and editable source |
+| `terraform/` | Azure foundation Terraform scaffold |
+| `migration-planning/` | Discovery, waves, cutover gates and templates |
+| `runbooks/` | Pilot, cutover, rollback procedures |
+| `docs/` | Assumptions, RACI, decisions and engineering notes |
+| `interview-prep/` | Senior migration scenarios and answers |
+| `.github/workflows/` | Terraform validation and IaC scanning |
 
-## Validation status
+## Operational and security principles
 
-GitHub Actions is intended to run formatting, initialization/validation and a static IaC scan against the starter Terraform. Green CI does **not** prove that a workload can be migrated, that a target environment meets an application’s RTO/RPO, or that a production migration has occurred. No actual migration is claimed by this repository.
+- Use least-privilege identities and OIDC for automation where configured.
+- Keep credentials and sensitive discovery exports out of Git.
+- Secure remote state and restrict deployment permissions.
+- Test backup and rollback rather than relying on documentation alone.
+- Validate application behavior, not only VM power state.
+- Track cost, licensing, capacity and data residency.
+- Treat migration completion as an application-owner acceptance decision.
 
-## Disclaimer
+## Further reading
 
-This is an engineering learning and portfolio project, not Microsoft product documentation or a substitute for workload-specific assessment, Microsoft service prerequisites, change-management approval, or a tested recovery plan.
+- [Migration planning templates](migration-planning/README.md)
+- [Execution runbooks](runbooks/README.md)
+- [Architecture and interview guide](docs/README.md)
+- [Zero-to-hero guide](docs/ZERO-TO-HERO.md)
+- [Advanced interview bank](docs/ADVANCED-INTERVIEW-BANK.md)
 
+## Maintainer
 
-## Architecture and interview preparation
+**MD Amirul Haque** · [GitHub](https://github.com/haqueamir70-coder) · [LinkedIn](https://www.linkedin.com/in/md-amirul-haque/)
 
-See the [architecture diagram and interview questions](docs/README.md) for the repository-specific design walkthrough and technical interview guide.
+<sub>Plan by dependency. Cut over by evidence. Recover by design.</sub>
